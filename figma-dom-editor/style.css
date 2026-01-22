@@ -1,0 +1,1039 @@
+/* =============================================
+   DOM Figma - Professional Figma-Style UI
+   Dark theme with precise Figma aesthetics
+   ============================================= */
+
+/* Design Tokens - Figma Dark Theme */
+:root {
+  --bg-canvas: #1e1e1e;
+  --bg-panel: #2c2c2c;
+  --bg-panel-dark: #252525;
+  --bg-toolbar: #2c2c2c;
+  --bg-hover: #3c3c3c;
+  --bg-active: #444444;
+  --bg-selected: #0d99ff;
+  --bg-input: #1e1e1e;
+  --border: #404040;
+  --border-light: #4a4a4a;
+  --text: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #8c8c8c;
+  --accent: #0d99ff;
+  --accent-hover: #3dabff;
+  --accent2: #18a058;
+  --danger: #f24822;
+  --danger-hover: #ff6b4d;
+  --warning: #ffb800;
+  --shadow: 0 2px 8px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --radius: 6px;
+  --radius-sm: 4px;
+  --radius-lg: 8px;
+  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Inconsolata", monospace;
+}
+
+/* Reset */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--bg-canvas);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================
+   App Layout
+   ============================================= */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =============================================
+   Topbar - Figma Style
+   ============================================= */
+.topbar {
+  display: flex;
+  align-items: center;
+
+  height: 48px;
+  padding: 0 20px;              /* ⬅ MORE SPACE LEFT & RIGHT */
+  background: var(--bg-toolbar);
+  border-bottom: 1px solid var(--border);
+
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-right: 20px;          /* ⬅ space before divider */
+  margin-right: 12px;
+  border-right: 1px solid var(--border);
+}
+.brand img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+.brand-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.toolbar-group:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+/* =============================================
+   Buttons - Figma Style
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  font-family: var(--font);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:hover {
+  background: var(--bg-hover);
+}
+
+.btn:active {
+  background: var(--bg-active);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background: transparent;
+}
+
+.btn .btn-icon {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn.accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn.accent:hover {
+  background: var(--accent-hover);
+}
+
+.btn.danger:hover {
+  background: rgba(242, 72, 34, 0.15);
+  color: var(--danger);
+}
+
+.btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Icon Button */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  background: var(--bg-hover);
+}
+
+/* =============================================
+   Tool Dropdown - Figma Style
+   ============================================= */
+.tool-dropdown {
+  position: relative;
+}
+
+.tool-btn {
+  padding-right: 8px;
+}
+
+.tool-btn .caret {
+  font-size: 8px;
+  margin-left: 4px;
+  opacity: 0.6;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 160px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 4px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: all 0.15s;
+}
+
+.dropdown-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.dropdown-item:hover {
+  background: var(--bg-hover);
+}
+
+.dropdown-item.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.dropdown-icon {
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* =============================================
+   Workspace - 3 Column Layout
+   ============================================= */
+.workspace {
+  display: grid;
+  grid-template-columns: 240px 1fr 280px;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* =============================================
+   Panels - Figma Style
+   ============================================= */
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  overflow: hidden;
+}
+
+.panel.layers {
+  border-right: 1px solid var(--border);
+}
+
+.panel.props {
+  border-left: 1px solid var(--border);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.panel-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  text-align: center;
+}
+
+.empty-state .empty-icon {
+  font-size: 32px;
+  color: var(--text-muted);
+  opacity: 0.4;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.empty-state .empty-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.empty-state.hidden {
+  display: none;
+}
+
+/* =============================================
+   Layers List - Figma Style
+   ============================================= */
+.layers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.layer-item:hover {
+  background: var(--bg-hover);
+}
+
+.layer-item.selected {
+  background: var(--accent);
+}
+
+.layer-item.multi-selected {
+  background: rgba(13, 153, 255, 0.3);
+  outline: 1px solid var(--accent);
+}
+
+.layer-item .layer-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.layer-item.selected .layer-icon,
+.layer-item.multi-selected .layer-icon {
+  color: var(--text);
+}
+
+.layer-item .layer-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.layer-item .layer-name {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.layer-item .layer-meta {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.layer-item.selected .layer-meta {
+  color: rgba(255,255,255,0.7);
+}
+
+.layer-item .layer-lock {
+  font-size: 10px;
+  color: var(--warning);
+  margin-left: auto;
+}
+
+/* =============================================
+   Canvas Area - Figma Style
+   ============================================= */
+.canvas-area {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-canvas);
+  overflow: hidden;
+}
+
+.canvas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: var(--bg-panel-dark);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+#selectionInfo {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.canvas-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  overflow: auto;
+  background: 
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    linear-gradient(var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center center;
+}
+
+/* Canvas with Figma-style checkerboard */
+.canvas {
+  position: relative;
+  width: 1200px;
+  height: 800px;
+  background: #ffffff;
+  border-radius: 2px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   Properties Panel - Figma Style
+   ============================================= */
+.props-section {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.props-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.props-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.props-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.props-row:last-child {
+  margin-bottom: 0;
+}
+
+.props-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.props-label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-muted);
+}
+
+/* Input Styles - Figma Style */
+.props-input {
+  width: 100%;
+  height: 28px;
+  padding: 0 8px;
+  font-family: var(--font);
+  font-size: 11px;
+  color: var(--text);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.props-input:hover {
+  border-color: var(--border-light);
+}
+
+.props-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.props-input::placeholder {
+  color: var(--text-muted);
+}
+
+.props-input[type="color"] {
+  padding: 2px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.props-input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+
+.props-input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 2px;
+}
+
+textarea.props-input {
+  height: auto;
+  min-height: 60px;
+  padding: 8px;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.props-info {
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 8px;
+  background: var(--bg-panel-dark);
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+/* =============================================
+   Design Elements (Canvas Items)
+   ============================================= */
+.design-el {
+  position: absolute;
+  cursor: move;
+  user-select: none;
+}
+
+.design-el.locked {
+  cursor: not-allowed;
+}
+
+.design-el.rect .shape-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.design-el.circle .shape-inner,
+.design-el.ellipse .shape-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.design-el.diamond {
+  overflow: visible;
+}
+
+.design-el.diamond .shape-inner {
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+  transform-origin: center center;
+}
+
+.design-el.crescent {
+  overflow: visible;
+}
+
+.design-el.crescent .shape-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.design-el.crescent .crescent-mask {
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  border-radius: 9999px;
+  background: #ffffff;
+  top: -10%;
+  left: 25%;
+}
+
+.design-el.image-el {
+  overflow: hidden;
+  background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 16px 16px;
+}
+
+.design-el.image-el img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.design-el.image-el .image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+}
+
+.design-el.text {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #1a1a1a;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.design-el.freedraw {
+  pointer-events: none;
+  overflow: visible;
+}
+
+.design-el.freedraw.selected {
+  pointer-events: auto;
+}
+
+.draw-dot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Selected State */
+.design-el.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
+.design-el.multi-selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  outline-style: dashed;
+}
+
+.design-el.locked.selected {
+  outline-color: var(--warning);
+}
+
+/* Lock indicator on canvas */
+.design-el .lock-indicator {
+  position: absolute;
+  top: -20px;
+  right: -8px;
+  font-size: 12px;
+  color: var(--warning);
+  background: var(--bg-panel);
+  padding: 2px 4px;
+  border-radius: 2px;
+  display: none;
+}
+
+.design-el.locked .lock-indicator {
+  display: block;
+}
+
+/* Resize Handles */
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 1px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.design-el.selected:not(.locked) .resize-handle {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.resize-handle.nw { top: -4px; left: -4px; cursor: nw-resize; }
+.resize-handle.ne { top: -4px; right: -4px; cursor: ne-resize; }
+.resize-handle.sw { bottom: -4px; left: -4px; cursor: sw-resize; }
+.resize-handle.se { bottom: -4px; right: -4px; cursor: se-resize; }
+
+/* =============================================
+   Toast Notification - Figma Style
+   ============================================= */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.toast.hidden {
+  display: none;
+}
+
+.toast.success {
+  border-left: 3px solid var(--accent2);
+}
+
+.toast.error {
+  border-left: 3px solid var(--danger);
+}
+
+/* =============================================
+   Modal - Figma Style
+   ============================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  position: relative;
+  width: 400px;
+  max-width: 90%;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.modal-close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.modal-close:hover {
+  color: var(--text);
+  background: var(--bg-hover);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* =============================================
+   Scrollbar Styling
+   ============================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-light);
+}
+
+::selection {
+  background: rgba(13, 153, 255, 0.3);
+}
+
+/* Free draw cursor */
+.canvas.freedraw-mode {
+  cursor: crosshair;
+}
+
+/* Drawing stroke preview */
+.draw-stroke-preview {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* =============================================
+   Topbar Buttons - Less static (ADD ONLY)
+   ============================================= */
+
+/* Topbar button motion */
+.topbar .btn,
+.topbar .icon-btn {
+  position: relative;
+  transition:
+    background 0.15s ease,
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+/* Hover = slight lift */
+.topbar .btn:hover,
+.topbar .icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Pressed = push down */
+.topbar .btn:active,
+.topbar .icon-btn:active {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Primary / Accent buttons get depth */
+.topbar .btn.primary,
+.topbar .btn.accent {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    0 1px 2px rgba(0,0,0,0.4);
+}
+
+.topbar .btn.primary:active,
+.topbar .btn.accent:active {
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.35);
+}
+
+/* Dropdown buttons feel clickable */
+.topbar .tool-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.topbar .tool-btn:hover::after {
+  opacity: 1;
+}
+
+/* Group separation feels softer (less flat) */
+.topbar .toolbar-group {
+  position: relative;
+}
+
+.topbar .toolbar-group:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.06),
+    transparent
+  );
+}
+
+/* Micro animation for active tool (Rectangle, Text) */
+.btn.active {
+  animation: figma-active-pop 120ms ease-out;
+}
+
+@keyframes figma-active-pop {
+  0% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+/* Optional: hover shine (very subtle) */
+.topbar .btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    transparent 40%,
+    rgba(255,255,255,0.06),
+    transparent 60%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.topbar .btn:hover::before {
+  opacity: 1;
+}

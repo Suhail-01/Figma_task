@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+  <title>Figma</title>
+  <link rel="stylesheet" href="/figma-dom-editor/style.css">
+  <script src="/figma-dom-editor/style.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+<div class="brand">
+  <img 
+    src=https://cdn.jsdelivr.net/npm/remixicon@4.8.0/icons/Logos/figma-fill.svg
+    alt="Figma"
+    class="brand-icon"
+  />
+  <span class="brand-text">Figma</span>
+</div>
+
+
+      <div class="toolbar-group">
+        <!-- Shape Tool Dropdown -->
+        <div class="tool-dropdown" id="shapeToolDropdown">
+          <button class="btn primary tool-btn" id="shapeToolBtn">
+            <span class="btn-icon" id="shapeToolIcon">□</span>
+            <span id="shapeToolLabel">Rectangle</span>
+            <span class="caret">▼</span>
+          </button>
+          <div class="dropdown-menu" id="shapeDropdownMenu">
+            <div class="dropdown-item" data-tool="rect"><span class="dropdown-icon">□</span> Rectangle</div>
+            <div class="dropdown-item" data-tool="circle"><span class="dropdown-icon">○</span> Circle</div>
+            <div class="dropdown-item" data-tool="ellipse"><span class="dropdown-icon">⬭</span> Ellipse</div>
+            <div class="dropdown-item" data-tool="diamond"><span class="dropdown-icon">◇</span> Diamond</div>
+            <div class="dropdown-item" data-tool="crescent"><span class="dropdown-icon">☽</span> Crescent</div>
+            <div class="dropdown-item" data-tool="image"><span class="dropdown-icon">🖼</span> Image</div>
+            <div class="dropdown-item" data-tool="freedraw"><span class="dropdown-icon">✎</span> Free Drawing</div>
+          </div>
+        </div>
+
+        <button id="addText" class="btn">
+          <span class="btn-icon">T</span>
+          Text
+        </button>
+      </div>
+
+      <div class="toolbar-group">
+        <button id="replaceBtn" class="btn" disabled title="Replace content">
+          <span class="btn-icon">↻</span>
+          Replace
+        </button>
+        <button id="lockBtn" class="btn" title="Lock/Unlock element">
+          <span class="btn-icon">🔓</span>
+          Lock
+        </button>
+        <div class="tool-dropdown" id="selectSameDropdown">
+          <button class="btn tool-btn" id="selectSameBtn">
+            <span class="btn-icon">⊞</span>
+            Select Same
+            <span class="caret">▼</span>
+          </button>
+          <div class="dropdown-menu" id="selectSameMenu">
+            <div class="dropdown-item" data-select="type">Same Type</div>
+            <div class="dropdown-item" data-select="fill">Same Fill Color</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar-group">
+        <button id="saveBtn" class="btn">Save</button>
+        <button id="loadBtn" class="btn">Load</button>
+        <button id="clearBtn" class="btn danger">Clear</button>
+        <div class="toolbar-divider"></div>
+        <button id="exportJsonBtn" class="btn accent">Export JSON</button>
+        <button id="exportHtmlBtn" class="btn">Export HTML</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel layers">
+        <div class="panel-header">
+          <h2 class="panel-title">Layers</h2>
+          <div class="panel-actions">
+            <button id="moveUpBtn" class="icon-btn" title="Move Up">▲</button>
+            <button id="moveDownBtn" class="icon-btn" title="Move Down">▼</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="layersList" class="layers-list"></div>
+          <div id="layersEmpty" class="empty-state">
+            <div class="empty-icon">◇</div>
+            <p>No layers yet</p>
+            <span class="empty-hint">Add a shape or text element</span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="canvas-area">
+        <div class="canvas-header">
+          <span id="canvasInfo">Canvas: 1200 × 800</span>
+          <span id="selectionInfo">No selection</span>
+        </div>
+        <div class="canvas-wrapper">
+          <div id="canvas" class="canvas"></div>
+        </div>
+      </section>
+
+      <aside class="panel props">
+        <div class="panel-header">
+          <h2 class="panel-title">Design</h2>
+        </div>
+        <div class="panel-body">
+          <div id="propsContent"></div>
+          <div id="propsEmpty" class="empty-state">
+            <div class="empty-icon">⬡</div>
+            <p>No selection</p>
+            <span class="empty-hint">Select an element to edit</span>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- Hidden file input for image upload -->
+    <input type="file" id="imageFileInput" accept="image/*" style="display:none;">
+
+    <!-- Replace Modal for Text -->
+    <div id="replaceModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Replace Text</h3>
+          <button class="modal-close" id="replaceModalClose">×</button>
+        </div>
+        <div class="modal-body">
+          <textarea id="replaceTextarea" class="props-input" rows="4" placeholder="Enter new text..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" id="replaceModalCancel">Cancel</button>
+          <button class="btn primary" id="replaceModalOk">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
